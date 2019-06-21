@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>添加食品</title>
+	<meta name="renderer" content="webkit">	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">	
+	<meta name="apple-mobile-web-app-capable" content="yes">	
+	<meta name="format-detection" content="telephone=no">	
+	<link rel="stylesheet" type="text/css" href="common/layui/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" href="common/bootstrap/css/bootstrap.css" media="all">
+	<link rel="stylesheet" type="text/css" href="common/global.css" media="all">
+	<link rel="stylesheet" type="text/css" href="css/personal.css" media="all">
+</head>
+<body>
+<section class="layui-larry-box">
+	<div class="larry-personal">
+		<header class="larry-personal-tit">
+			<span>添加食品</span>
+		</header><!-- /header -->
+		<div class="larry-personal-body clearfix changepwd">
+			<form class="layui-form col-lg-4" id="formid" name="formname"  method="post"  action="foodinsert">
+			 	<div class="layui-form-item">
+					<label class="layui-form-label">食物名</label>
+					<div class="layui-input-block">  
+					  	<input type="text" name="name"  autocomplete="off"   class="layui-input" value=""placeholder="请输入食物名" >
+					</div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">描述</label>
+					<div class="layui-input-block">  
+					  	<input type="text" name="info"  autocomplete="off"  class="layui-input" value="" placeholder="请输入描述">
+					</div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">价格</label>
+					<div class="layui-input-block">  
+					  	<input type="text" name="price"  autocomplete="off"  class="layui-input" value="" placeholder="请输入价格">
+					</div>
+				</div>
+				<div class="layui-form-item change-submit">
+					<div class="layui-input-block">
+						<button type="button" class="layui-btn" onclick="check()">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+<script type="text/javascript" src="common/layui/layui.js"></script>
+<script type="text/javascript" src="js/newsadd.js"></script>
+<script type="text/javascript">
+function check()
+{
+ var name = document.formname.name.value;
+ var info = document.formname.info.value;
+ var price = document.formname.price.value;
+
+ var myreg=/^[1-9]\d*|0$/;			//匹配非负整数
+
+ if (name==""|| price==""||info=="")
+ {
+  	 	layer.open({
+  			title: '警告'
+  			,content: '任何信息不能为空'
+		}); 
+  return false;
+ }
+ else if (!myreg.test(price)) {
+ 		layer.open({
+  			title: '警告'
+  			,content: '价格输入不正确！'
+		});
+        return false;
+ } 
+ else {
+ 	 layer.confirm('您确认要提交吗？', {
+  		btn: ['确认','取消'] //按钮
+		},function(){
+  			document.getElementById("formid").submit();//重点一！！！模拟提交！！
+  			layer.msg('提交成功.', {icon: 3});
+		}, function(){
+				layer.msg('已取消..');
+				 return false;
+		});
+  	return true;
+  }
+}
+</script>
+
+</body>
+</html>

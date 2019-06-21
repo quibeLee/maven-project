@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.dao.RoomDao">
+
+<resultMap type="com.hotel.model.Room" id="BaseResultMap">
+         <result column="id" property="id"/>         
+         <result column="type" property="type"/>
+         <result column="price" property="price"/>         
+         <result column="isnull" property="isnull"/>
+</resultMap>
+
+
+<insert id="insertRoom" parameterType="com.hotel.model.Room">
+	insert into room_info(id,type,price,isnull) values(#{id},#{type},#{price},#{isnull})
+</insert>
+
+<select id="selectAllRoom" resultMap="BaseResultMap">
+	select * from room_info
+</select>
+
+<select id="selectAllCount" resultType="java.lang.Integer">
+	select COUNT(*) from room_info
+</select>
+
+<select id="selectAllLastCount" resultType="java.lang.Integer">
+	select COUNT(*) from room_info where isnull=0
+</select>
+
+<select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      	select * from room_info where id=#{id}
+</select>
+
+<delete id="deleteById" parameterType="java.lang.Integer">
+      delete  from room_info where id=#{id}
+</delete>
+
+<update id="updateIsnull" parameterType="com.hotel.model.Room">
+      UPDATE room_info set isnull=#{isnull} where id=#{id}
+</update>
+
+</mapper>

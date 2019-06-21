@@ -1,0 +1,12 @@
+server:
+  port: 8080
+   
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.hotel.model
+  
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

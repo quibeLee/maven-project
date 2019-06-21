@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hotel.dao.FoodDao">
+
+<insert id="insertFood" parameterType="com.hotel.model.Food">
+	insert into food_info(name,info,price) values(#{name},#{info},#{price})
+</insert>
+
+<select id="selectAllFood" resultType="com.hotel.model.Food">
+	select * from food_info
+</select>
+
+<select id="selectByName" resultType="com.hotel.model.Food">
+      	select * from food_info where name=#{name}
+</select>
+
+<delete id="deleteByName">
+      delete  from food_info where name=#{name}
+</delete>
+</mapper>

@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.liheng</groupId>
+  <artifactId>hotel</artifactId>
+  <version>1.0</version>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  	<name>hotel</name>
+  	<!-- 引入父类依赖 -->
+  	<parent>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-parent</artifactId>
+    	<version>1.5.10.RELEASE</version>
+  	</parent>
+  	<!-- 制定模板具体版本，防止过于严格的HTML5 -->
+  	<properties>
+  		<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.0.5</thymeleaf-layout-dialect.version>
+  	</properties>
+  	
+  	
+  	<dependencies>
+  		<!-- spring boot 配置web的依赖-->
+  		<dependency>
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-web</artifactId>
+    	</dependency>
+    	<!-- 导入log4j -->
+    	<dependency>
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-log4j</artifactId>
+      		<version>1.3.8.RELEASE</version>
+    	</dependency>
+    	<!-- 导入thymeleaf的依赖包. -->
+    	<dependency>
+2       	<groupId>org.springframework.boot</groupId>
+3       	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+4 		</dependency>
+    	<!-- 导入mybaties -->
+    	<dependency>
+   			<groupId>org.mybatis.spring.boot</groupId>
+    		<artifactId>mybatis-spring-boot-starter</artifactId>
+    		<version>1.2.0</version>
+		</dependency>
+		<!-- 阿里数据连接池-->
+		<dependency>
+    		<groupId>com.alibaba</groupId>
+    		<artifactId>druid</artifactId>
+    		<version>1.1.10</version>
+		</dependency>
+		<!-- 数据库驱动 -->
+		<dependency>
+    		<groupId>mysql</groupId>
+    		<artifactId>mysql-connector-java</artifactId>
+    	<!-- <version>8.0.15</version> -->
+		</dependency>
+    	<!-- 单元测试 -->
+    	<dependency>
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-test</artifactId>
+      		<scope>test</scope>
+    	</dependency>
+    	<!-- AOP -->
+   		<dependency>
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-aop</artifactId>
+    	</dependency>
+    	<!--Json -->
+    	<dependency>
+    		<groupId>net.sf.json-lib</groupId> 
+    		<artifactId>json-lib</artifactId> 
+    		<version>2.4</version> 
+    		<classifier>jdk15</classifier> 
+    	</dependency>
+    	<!-- mybatis分页插件 -->
+    	<dependency> 
+    		<groupId>com.github.pagehelper</groupId> 
+    		<artifactId>pagehelper-spring-boot-starter</artifactId> 
+    		<version>1.2.2</version> 
+    	</dependency>
+  	</dependencies>
+</project>

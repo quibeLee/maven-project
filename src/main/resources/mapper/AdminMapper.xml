@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.dao.AdminDao">
+
+
+
+   <select id="login" resultType="com.hotel.model.Admin">
+      	select * from admin_user where username=#{username} and password=#{password}
+   </select>
+   
+    <select id="selectByName" resultType="com.hotel.model.Admin">
+      	select * from admin_user where username=#{username}
+   </select>
+   
+   <select id="selectAll" resultType="com.hotel.model.Admin">
+      	select * from admin_user
+   </select>
+   
+   <select id="selectAllCount" resultType="java.lang.Integer">
+      	select count(*) from admin_user
+   </select>
+   
+   <insert id="insert" parameterType="com.hotel.model.Admin">
+  		insert into admin_user(username,password,phone,email,sex) VALUES(#{username},#{password},null,null,null)
+   </insert>
+   
+   <update id="updatePassword">
+      UPDATE admin_user set password=#{password} where username=#{username}
+   </update>
+   
+   <update id="updateInfo" parameterType="com.hotel.model.Admin">
+      UPDATE admin_user set phone=#{phone},email=#{email},sex=#{sex} where username=#{username}
+   </update>
+   
+    <delete id="deleteByName">
+      delete  from admin_user where username=#{param1}
+   </delete>
+
+</mapper>

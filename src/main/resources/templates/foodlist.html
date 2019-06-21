@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户列表</title>	
+	<link rel="stylesheet" type="text/css" href="layui/css/layui.css" media="all">
+</head>
+<body>
+
+<table id="demo" lay-filter="test"></table>
+<script type="text/html" id="barDemo">
+     <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script>
+<script src="/layui/layui.js"></script>
+<script type="text/javascript" th:inline="none">
+layui.use('table', function(){
+        var table = layui.table;
+    
+        table.render({
+            elem: '#demo'
+            ,url:'/food' 
+            ,cellMinWidth: 80
+            ,page: true //开启分页
+            ,cols: [[
+            	{checkbox: true, fixed: true}
+                ,{field:'id', width:80, title: 'ID', sort: true, fixed: true}
+                ,{field:'name',width:200,title: '食物名称', }
+                ,{field:'price',width:200, title: '食物价格'}
+                ,{field:'info',title: '食品描述'}
+                ,{field:'right',width:200, title: '操作', width:177,toolbar:"#barDemo"} //添加删除按钮
+            ]]
+          
+        });
+        	
+		table.on('checkbox(test)', function(obj){      //监听表格复选框
+            console.log(obj)
+        });
+        table.on('tool(test)', function(obj){
+    			var data = obj.data;
+    		  	if(obj.event === 'del'){
+    		  		layer.confirm('确定删除此食品', function(index){
+      					$.ajax({
+                		url: "/deleteFood",
+                		type: "post",
+                		data:{"name":data.name},
+                		dataType: "json",
+               				success: function(res){
+                    			if(!res.success){
+                        			obj.del(); //删除这一行
+                        			layer.close(index); //关闭弹框
+                        			layer.msg("删除成功", {icon: 3});
+                    			}else{
+                        			layer.msg("删除失败", {icon: 5});
+                   				}
+                			}
+
+            			});
+            		});
+            	}
+    	});
+});
+
+
+</script>
+</body>
+</html>

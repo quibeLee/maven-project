@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户列表</title>	
+	<link rel="stylesheet" type="text/css" href="layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="demoTable">
+    <div class="layui-input-inline">
+        <input class="layui-input search_input" name="keyword" id="demoReload" placeholder="请输入用户名" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
+<table id="demo" lay-filter="test"></table>
+<script type="text/html" id="barDemo">
+     <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script>
+<script src="/layui/layui.js"></script>
+<script type="text/javascript" th:inline="none">
+layui.use('table', function(){
+        var table = layui.table;
+    
+        table.render({
+            elem: '#demo'
+            ,url:'/user' 
+            ,cellMinWidth: 80
+            ,page: true //开启分页
+            ,cols: [[
+            	{checkbox: true, fixed: true}
+                ,{field:'id', width:80, title: 'ID', sort: true, fixed: true}
+                ,{field:'username',  title: '用户名', sort: true}
+                ,{field:'name',  title: '姓名'}
+                ,{field:'phone', width:200, title: '电话'}
+                ,{field:'email',width:200, title: '邮箱'} //minWidth：局部定义当前单元格的最小宽度
+                ,{field:'sex', title: '性别'} 
+                ,{field:'date',  title: '注册日期'}
+                ,{field:'right', title: '操作', width:177,toolbar:"#barDemo"} //添加删除按钮
+            ]]
+            ,id: 'testReload' //绑定搜索按钮
+        });
+        
+         var $ = layui.$, active = {					//表格重载
+        		reload: function(){
+            		var demoReload = $('#demoReload');  //监听搜索框值
+           			 table.reload('testReload', {       //绑定搜索的表格
+                		where: {
+                    		keyword: demoReload.val()
+               		 	}
+            		});
+            	}	
+       	 };
+       	 
+       	 $('.demoTable .layui-btn').on('click', function(){    //绑定搜索按钮
+    			var type = $(this).data('type');
+    			active[type] ? active[type].call(this) : '';
+			});
+			
+		table.on('checkbox(test)', function(obj){      //监听表格复选框
+            console.log(obj)
+        });
+        
+        table.on('tool(test)', function(obj){
+    			var data = obj.data;
+    		  	if(obj.event === 'del'){
+   
+    		  		layer.confirm('确定删除此用户', function(index){
+      					$.ajax({
+                		url: "/deleteUser",
+                		type: "post",
+                		data:{"username":data.username},
+                		dataType: "json",
+               				success: function(res){
+                    			if(!res.success){
+                       				
+                        			obj.del(); //删除这一行
+                        			layer.close(index); //关闭弹框
+                        			layer.msg("删除成功", {icon: 3});
+                    			}else{
+                        			layer.msg("删除失败", {icon: 5});
+                   				}
+                			}
+
+            			});
+            		});
+            	}
+    	});
+});
+
+
+</script>
+</body>
+</html>
